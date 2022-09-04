@@ -2,6 +2,7 @@ import 'package:classapp/features/dashboard/model/dashboard_card_model.dart';
 import 'package:classapp/features/dashboard/services/dashboard_services.dart';
 import 'package:classapp/features/dashboard/widgets/dashboard_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DashboardView extends StatefulWidget {
   const DashboardView({Key? key}) : super(key: key);
@@ -34,14 +35,14 @@ class _DashboardViewState extends State<DashboardView> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Dashboard"),
+        title: Text(AppLocalizations.of(context)!.dashboard),
         automaticallyImplyLeading: false,
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : dashboardCard == null
               ? const Center(
-                  child: Text("something went wromg"),
+                  child: Text("Something went wrong."),
                 )
               : Center(
                   child: Column(

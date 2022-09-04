@@ -21,20 +21,22 @@ class NetworkClient {
         Uri.parse(baseUrl + path),
         headers: getHeader(),
       );
-      // if statuscode of response is 200,then set the response body in shared preferences as cache.
+      //if statuscode of response is 200, then set the response body in shared preferences as cache.
       if (response.statusCode == 200) {
         locator.get<SharedPreferences>().setString(path, response.body);
+      } else if (response.statusCode == 500) {
+        AppSnacks.showErrorToast("Internal server error.");
       }
     } catch (e) {
-      // check if there's chached rwesponse in shared preferences.
+      //Check if there's cached response in shared preferences.
       final _cacheValue = locator<SharedPreferences>().getString(path);
-      // if there's is something, return it as response.
+      // if there's something, return it as response.
       if (_cacheValue != null) {
         response = http.Response(_cacheValue, 200);
       }
+      //just to show snackbar in case of exception.
       AppSnacks.showSnackBar(AppSettings.navigatorKey.currentContext!,
-          message: "something went wrong");
-      print(e.toString());
+          message: "Something went wrong.");
     }
     log(response != null ? response.statusCode.toString() : "response is null");
     return response;

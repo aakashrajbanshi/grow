@@ -10,7 +10,7 @@ class AppSnacks {
     ));
   }
 
-// to show error toast
+  //to show error toast
   static showErrorToast(String message) {
     Fluttertoast.showToast(
       msg: message,
@@ -20,7 +20,7 @@ class AppSnacks {
     );
   }
 
-// to show success toast
+  //to show success toast
   static showSuccessToast(String message) {
     Fluttertoast.showToast(
       msg: message,

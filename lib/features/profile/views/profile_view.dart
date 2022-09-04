@@ -1,16 +1,21 @@
-import 'package:classapp/app/routes.dart';
+import 'package:classapp/app/routes/routes.dart';
+import 'package:classapp/app/themes/dark_theme.dart';
+import 'package:classapp/app/themes/light_theme.dart';
+import 'package:classapp/app/widgets/app_drawer.dart';
 import 'package:classapp/constants/image_constants.dart';
 import 'package:classapp/features/profile/model/profile_model.dart';
 import 'package:classapp/features/profile/services/profile_services.dart';
 import 'package:classapp/helpers/confirmation_dialog.dart';
 import 'package:classapp/helpers/snacks.dart';
 import 'package:classapp/models/dummy_page_model.dart';
+import 'package:classapp/providers/language_provider.dart';
+import 'package:classapp/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../locator.dart';
 import '../../../pages/login_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({Key? key}) : super(key: key);
@@ -37,9 +42,12 @@ class _ProfileViewState extends State<ProfileView> {
 
   @override
   Widget build(BuildContext context) {
+    final themepro = Provider.of<ThemeProvider>(context);
+    final language = Provider.of<LanguageProvider>(context);
     return Scaffold(
+      drawer: AppDrawer(),
       appBar: AppBar(
-        title: Text("Profile"),
+        title: Text(AppLocalizations.of(context)!.profile),
         centerTitle: true,
         actions: [
           // This is for logout
@@ -56,6 +64,30 @@ class _ProfileViewState extends State<ProfileView> {
             icon: const Icon(
               Icons.logout,
             ),
+          ),
+
+          InkWell(
+            onTap: () {
+              themepro.changeTheme();
+            },
+            child: Icon(
+              themepro.currentTheme == lightTheme
+                  ? Icons.dark_mode
+                  : Icons.light_mode,
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+
+          InkWell(
+            onTap: () {
+              language.changeLocale();
+            },
+            child: const Icon(Icons.language),
+          ),
+          const SizedBox(
+            width: 10,
           ),
         ],
       ),
@@ -77,14 +109,17 @@ class _ProfileViewState extends State<ProfileView> {
                     ),
                   ),
                   IconButton(
-                      onPressed: () {
-                        showModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              return Text("Hello");
-                            });
-                      },
-                      icon: const Icon(Icons.edit)),
+                    onPressed: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return Text("Hahha");
+                          });
+                    },
+                    icon: const Icon(
+                      Icons.edit,
+                    ),
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -108,23 +143,25 @@ class _ProfileViewState extends State<ProfileView> {
                   ),
                   Text("Supervisor: ${_profileModel?.supervisorName}"),
                   ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, AppRoutes.dummyRoute,
-                            arguments: DummyPageModel(
-                              name: "Hello",
-                              address: "Kathmandu",
-                              age: 2,
-                            ));
-                      },
-                      child: Text("Navigate")),
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRoutes.dummyRoute,
+                          arguments: DummyPageModel(
+                            name: "Hello",
+                            address: "Kathmandu",
+                            age: 2,
+                          ));
+                    },
+                    child: const Text("Navigate"),
+                  ),
                   ElevatedButton(
                     onPressed: () {
-                      AppSnacks.showSuccessToast("this is a toast");
+                      // AppSnacks.showErrorToast("Button is clicked");
+                      AppSnacks.showErrorToast("hello");
                     },
                     child: const Text(
                       "Press",
                     ),
-                  ),
+                  )
                 ],
               ),
             ),

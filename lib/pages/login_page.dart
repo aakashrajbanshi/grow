@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:classapp/app/routes.dart';
+import 'package:classapp/app/routes/routes.dart';
 import 'package:classapp/constants/app_constants.dart';
 import 'package:classapp/constants/image_constants.dart';
 import 'package:classapp/helpers/snacks.dart';
@@ -155,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             if (isLoading) ...{
-              Center(
+              const Center(
                 child: CircularProgressIndicator(),
               )
             }

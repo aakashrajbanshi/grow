@@ -1,9 +1,10 @@
-import 'package:classapp/app/routes.dart';
+import 'package:classapp/app/routes/routes.dart';
 import 'package:classapp/features/daily-updates/views/add_daily_updates_view.dart';
 import 'package:classapp/models/dummy_page_model.dart';
 import 'package:classapp/pages/dummy_page.dart';
 import 'package:classapp/pages/home_page.dart';
 import 'package:classapp/pages/login_page.dart';
+import 'package:classapp/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class RouteHandler {
@@ -22,6 +23,10 @@ class RouteHandler {
             builder: (context) => DummyPage(
                   data: arguments as DummyPageModel,
                 ));
+      case AppRoutes.settingsRoute:
+        return MaterialPageRoute(
+          builder: (context) => const SettingsPage(),
+        );
       default:
         return MaterialPageRoute(builder: (context) => const LoginPage());
     }

@@ -1,10 +1,11 @@
 import 'dart:developer';
 
-import 'package:classapp/app/routes.dart';
+import 'package:classapp/app/routes/routes.dart';
 import 'package:classapp/features/daily-updates/model/daily_update_model.dart';
 import 'package:classapp/features/daily-updates/services/daily_update_services.dart';
 import 'package:classapp/features/daily-updates/widgets/list_shimmer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DailyUpdatesView extends StatefulWidget {
   const DailyUpdatesView({Key? key}) : super(key: key);
@@ -41,7 +42,7 @@ class _DailyUpdatesViewState extends State<DailyUpdatesView> {
       ),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text("Daily updates"),
+        title: Text(AppLocalizations.of(context)!.dailyUpdates),
       ),
       body: _isLoading
           ? ListShimmer()
@@ -53,7 +54,6 @@ class _DailyUpdatesViewState extends State<DailyUpdatesView> {
                 return ListTile(
                   title: Text(dailyUpdates[index].title ?? ""),
                   subtitle: Text(dailyUpdates[index].description ?? ""),
-                  leading: const Text("*"),
                   trailing: dailyUpdates[index].acknowledgedAt == null
                       ? Row(
                           mainAxisSize: MainAxisSize.min,
@@ -68,12 +68,12 @@ class _DailyUpdatesViewState extends State<DailyUpdatesView> {
                             ),
                             InkWell(
                               onTap: () {
-                                log("Deleted Tapped");
+                                log("Delete Tapped");
                               },
                               child: const Icon(
                                 Icons.delete,
                               ),
-                            ),
+                            )
                           ],
                         )
                       : const SizedBox(),

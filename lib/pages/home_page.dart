@@ -1,18 +1,10 @@
-import 'dart:developer';
-
-import 'package:classapp/constants/app_constants.dart';
 import 'package:classapp/features/attendance/views/attendance_view.dart';
 import 'package:classapp/features/daily-updates/views/daily_updates_view.dart';
 import 'package:classapp/features/dashboard/views/dashboard_view.dart';
 import 'package:classapp/features/leaves/views/leaves_view.dart';
 import 'package:classapp/features/profile/views/profile_view.dart';
-import 'package:classapp/locator.dart';
-import 'package:classapp/pages/login_page.dart';
-import 'package:classapp/providers/counter_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
